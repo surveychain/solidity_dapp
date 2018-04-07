@@ -9,18 +9,29 @@ contract SimpleSurvey {
         surveyOwner = msg.sender;
     }
     
-    function setSurveyResult(uint8[] surveyResult) public returns (bool) {
+    function setSurveyResult(uint8 q_count, uint8 q1, uint8 q2, uint8 q3, uint8 q4, uint8 q5) public returns (bool) {
         uint i = 0;
         for (i = 0; i < surveyMemberList.length; i++) {
             if (surveyMemberList[i] == msg.sender) {
                 return false;
             }
         }
-
         surveyMemberList.push(msg.sender);
 
-        for (i = 0; i < surveyResult.length; i++) {
-            surveyMap[msg.sender].push(surveyResult[i]);
+        for (i = 0; i < q_count; i++) {
+            uint8 q = 0;
+            if (i == 0) {
+                q = q1;
+            } else if (i == 1) {
+                q = q2;
+            } else if (i == 2) {
+                q = q3;
+            } else if (i == 3) {
+                q = q4;
+            } else if (i == 4) {
+                q = q5;
+            }
+            surveyMap[msg.sender].push(q);
         }
 
         return true;
